@@ -1,9 +1,14 @@
 <?php
 
-$diaSemana = date('N', time());
-$diaMes = date('d', time());
-$mes = date('n', time());
-$anio = date('Y', time());
+$d1= 8;
+$m1= 5;
+$a1= 2028;
+     
+
+$diaSemana = date('N', mktime(0, 0, 0, $m1, $d1, $a1));
+$diaMes = date('d', mktime(0, 0, 0, $m1, $d1, $a1));
+$mes = date('n', mktime(0, 0, 0, $m1, $d1, $a1));
+$anio = date('Y', mktime(0, 0, 0, $m1, $d1, $a1));
 
 switch ($diaSemana) {
     case 1:
@@ -31,7 +36,7 @@ switch ($diaSemana) {
         break;
 }
 
-switch ($diaSemana) {
+switch ($mes) {
     case 1:
         $mes="Enero";
         break;

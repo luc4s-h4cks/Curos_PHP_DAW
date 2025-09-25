@@ -10,11 +10,8 @@ while ($i < 5){
     echo "<tr>";
     
     do{
-        echo "<td>";
-        
-        echo $num;
-        
-        echo "</td>";
+        echo "<td>".$num."</td>";
+
         $num++;
         $j++;
     }while ($j < 7);

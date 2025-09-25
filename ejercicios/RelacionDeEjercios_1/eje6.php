@@ -13,21 +13,18 @@ do{
     $a++;
 }while($a <= 100);
 
-echo "Repetir: ".$res1;
-echo "<br>";
-
+echo "Repetir: ".$res1."<br>";
 
 while($b <= 100){
     $res2+=$b;
     $b++;
 }
 
-echo "Mientras: ".$res2;
-echo "<br>";
+echo "Mientras: ".$res2."<br>";
+
 
 for($i=1;$i<=100;$i++){
     $res3+=$i;
 }
 
 echo "Para: ".$res3;
-echo "<br>";

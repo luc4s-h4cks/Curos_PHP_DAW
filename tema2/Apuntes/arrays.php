@@ -26,3 +26,20 @@ $matriz = array(
     1 =>array("nombre" => "Maria", "apellido"=> "Sanchez", "edad" => 28),
     2 =>array("nombre" => "Juan", "apellido"=> "Ramirez", "edad" => 33)
     );
+
+    foreach ($matriz as $ind => $fila){
+        foreach ($fila as $ind2 =>$valor){
+            echo $ind2." = ".$valor." ";
+        }
+    }
+
+echo "<br>"."<br>";
+var_dump($matriz);
+
+echo "<br>"."<br>";
+
+echo count($matriz[1]);
+
+echo "<br>"."<br>";
+
+echo count($matriz );

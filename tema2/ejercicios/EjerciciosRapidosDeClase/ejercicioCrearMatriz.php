@@ -13,3 +13,9 @@ $matriz = array(
         "Windows"=>"Desarrollo entorno windows",
         "OPT"=>"Optativa")
 );
+
+foreach ($matriz as $ind => $ciclo){
+    foreach ($ciclo as $ind2 => $asig){
+        echo $ind." --> ".$ind2." = ".$asig."<br>";
+    }
+}

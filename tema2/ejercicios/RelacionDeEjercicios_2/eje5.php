@@ -1,13 +1,13 @@
 <?php
 
 $productos = array(
-    array("Zumo", 4, 200),
-    array("Fanta", 2, 500),
-    array("Pan", 1, 1000)
+    array("nombre" => "Zumo", "precio" => 4, "cantidad" => 200),
+    array("nombre" => "Fanta", "precio" => 2, "cantidad" => 500),
+    array("nombre" => "Pan", "precio" => 1, "cantidad" => 1000)
 );
 
-echo $productos[1][0].": ".$productos[1][1]."€"."<br>";
+echo $productos[1]["nombre"].": ".$productos[1]["precio"]."€"."<br>";
 
-foreach ($productos as $i => $pro){
-    echo $pro[0]."<br>";
+foreach ($productos as $indi => $pro){
+    echo $pro["nombre"]."<br>";
 }

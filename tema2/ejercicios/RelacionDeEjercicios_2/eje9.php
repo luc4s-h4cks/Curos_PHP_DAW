@@ -3,7 +3,7 @@
     $numeros = array(4,33,12,99,45);
     
     $max =0;
-    $min = 99999999;
+    $min = 9999999999999999999999999;
     
     foreach ($numeros as $indi => $num){
         

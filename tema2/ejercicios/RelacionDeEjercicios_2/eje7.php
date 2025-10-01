@@ -2,7 +2,7 @@
 
     $paises = array("España", "Francia", "Italia", "Alemania", "Portugal");
     
-    unset($paises[2]);
+    unset($paises[array_search("Italia", $paises)]);
     
     print_r($paises);
     

@@ -9,5 +9,8 @@ $productos = array(
 echo $productos[1]["nombre"].": ".$productos[1]["precio"]."€"."<br>";
 
 foreach ($productos as $indi => $pro){
-    echo $pro["nombre"]."<br>";
+    echo "Producto ".$indi.": <br>";
+    foreach ($pro as $indi2 => $datos){
+        echo $indi2.": ".$datos."<br>";
+    }
 }

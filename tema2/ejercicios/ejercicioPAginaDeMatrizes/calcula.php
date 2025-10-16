@@ -19,7 +19,7 @@ if (isset($_POST['calcular'])) {
 
     if ($_POST['accion'] == "diagonal" && $_POST['col'] == $_POST['fil']) {
         $es_Cuadrada = true;
-    }else if($_POST['accion'] != "diagonal"){
+    } else if ($_POST['accion'] != "diagonal") {
         $es_Cuadrada = true;
     }
 }
@@ -28,13 +28,14 @@ if (isset($_POST['calcular']) && $col && $fil && $es_Cuadrada) {
 
 
     if (isset($_POST['calcular'])) {
+
+        $matriz = crearMatrizRandom($_POST['col'], $_POST['fil']);
+        mostrarMatriz($matriz);
+
         switch ($_POST['accion']) {
             case "filas":
 
                 echo "<h1>Calcular Filas</h1>";
-
-                $matriz = crearMatrizRandom($_POST['col'], $_POST['fil']);
-                mostrarMatriz($matriz);
 
                 $filas = sumarFilas($matriz);
 
@@ -47,9 +48,6 @@ if (isset($_POST['calcular']) && $col && $fil && $es_Cuadrada) {
 
                 echo "<h1>Calcular columnas</h1>";
 
-                $matriz = crearMatrizRandom($_POST['col'], $_POST['fil']);
-                mostrarMatriz($matriz);
-
                 $colums = sumarColumnas($matriz);
 
                 foreach ($colums as $key => $value) {
@@ -61,9 +59,6 @@ if (isset($_POST['calcular']) && $col && $fil && $es_Cuadrada) {
             case "filas_columnas":
 
                 echo "<h1>Calcular filas y columnas</h1>";
-
-                $matriz = crearMatrizRandom($_POST['col'], $_POST['fil']);
-                mostrarMatriz($matriz);
 
                 $filas = sumarFilas($matriz);
                 $colums = sumarColumnas($matriz);
@@ -80,13 +75,16 @@ if (isset($_POST['calcular']) && $col && $fil && $es_Cuadrada) {
             case "diagonal":
 
                 echo "<h1>Calcular Diagonal principal</h1>";
-
+                
+                echo "Total de la diagonal principal: ". caulcularDiagonal($matriz);
+                
                 break;
 
             case "traspuesta":
 
                 echo "<h1>Calcular matriz traspuesta</h1>";
-
+                $traspuesta = calcularTraspuesta($matriz);
+                mostrarMatriz($traspuesta);
                 break;
         }
     }
@@ -100,11 +98,11 @@ if (isset($_POST['calcular']) && $col && $fil && $es_Cuadrada) {
 
         <input type="hidden" name="accion" value="<?= $_GET['accion'] ?>">
         Introduce el numero de columnas<input type="number" name="col">
-        <?php
-        if (isset($_POST['calcular']) && !$col) {
-            echo "<span style= color:red> tiene que haber columnas o ser un numero positivo</span>";
-        }
-        ?>
+    <?php
+    if (isset($_POST['calcular']) && !$col) {
+        echo "<span style= color:red> tiene que haber columnas o ser un numero positivo</span>";
+    }
+    ?>
         <br>
         Introduce el numero de filas<input type="number" name="fil">
         <?php
@@ -115,7 +113,7 @@ if (isset($_POST['calcular']) && $col && $fil && $es_Cuadrada) {
         <br>
         <?php
         if (isset($_POST['calcular']) && $_POST['accion'] == "diagonal" && !$es_Cuadrada) {
-        echo "<span style= color:red> Para calcular la diagonal la matriz tiene que ser cuadrada</span>";
+            echo "<span style= color:red> Para calcular la diagonal la matriz tiene que ser cuadrada</span>";
         }
         ?>
         <br>

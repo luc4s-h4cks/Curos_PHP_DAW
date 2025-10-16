@@ -49,13 +49,28 @@ function sumarColumnas($matriz) {
 
 function caulcularDiagonal($matriz) {
 
-    $columnas = array();
+    $sum = 0;
     for ($i = 0; $i < count($matriz); $i++) {
-        $sum = 0;
         for ($j = 0; $j < count($matriz); $j++) {
-            $sum += $matriz[$j][$i];
+            if($i == $j){
+                $sum += $matriz[$i][$j];
+            }
         }
-        $columnas[] = $sum;
+        
     }
-    return $columnas;
+    return $sum;
+}
+
+function calcularTraspuesta($matriz){
+    
+    $traspuesta= array();
+    
+    for($i = 0; $i < count($matriz); $i++){
+        for($j = 0; $j < count($matriz[$i]); $j++){
+            
+            $traspuesta[$j][$i] = $matriz[$i][$j];
+            
+        }
+    }
+    return $traspuesta;
 }

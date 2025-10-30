@@ -31,3 +31,11 @@ function validarGoles($goles){
         return false;
     }
 }
+
+function validarPosicion($pos){
+    if(!empty($pos)){
+        return true;
+    }else{
+        return false;
+    }
+}

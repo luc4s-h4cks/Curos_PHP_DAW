@@ -1,6 +1,8 @@
 <?php
 include 'funsiones.php';
 
+$msg= "";
+
 if (isset($_POST['menu'])) {
     header("Location: index.php");
     exit;
@@ -21,8 +23,11 @@ if (isset($_POST['insertar']) && $nombre && $dni && $equipo && $goles && $posici
         $pos = implode(",", $_POST['pos']);
         $stmt->bind_param("ssissi", $_POST['nombre'], $_POST['dni'], $_POST['dorsal'], $pos, $_POST['equipo'], $_POST['goles']);
         $stmt->execute();
+        $_POST['msg'] = "Jugador introducido";
+        header("Location: index.php?from=insertar");
+        exit;
     } catch (mysqli_sql_exception $ex) {
-        echo $ex->getMessage();
+        $msg = "Ese DNI ya existe en la base de datos";
     }
 }
 ?>
@@ -54,14 +59,18 @@ if (isset($_POST['insertar']) && $nombre && $dni && $equipo && $goles && $posici
     </select><?php if (isset($_POST['insertar']) && !$posicion) echo "<span style='color: red;'>Selecione al menos un posicion</span>" ?> <br>
 
     Equipo: <input type="text" name="equipo" <?php if (isset($_POST['insertar']) && $equipo) echo "value='$_POST[equipo]'" ?>> 
-<?php if (isset($_POST['insertar']) && !$equipo) echo "<span style='color: red;'>No puede estar vacio</span>" ?><br>
+    <?php if (isset($_POST['insertar']) && !$equipo) echo "<span style='color: red;'>No puede estar vacio</span>" ?><br>
 
     Goles: <input type="text" name="goles" <?php if (isset($_POST['insertar']) && $goles) echo "value='$_POST[goles]'" ?>> 
-<?php if (isset($_POST['insertar']) && !$goles) echo "<span style='color: red;'>Solo numeros</span>" ?><br>
+    <?php if (isset($_POST['insertar']) && !$goles) echo "<span style='color: red;'>Solo numeros</span>" ?><br>
 
+    <input type="hidden" name="msg">
+    
     <input type="submit" name="menu" value="Menu">
     <input type="submit" name="insertar" value="Insertar">
 
 </form>
 
-
+<?php
+echo $msg;
+?>

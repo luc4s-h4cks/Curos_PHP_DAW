@@ -33,7 +33,7 @@ if(isset($_POST['buscar'])){
             echo "Jugadores encontrados<br>";
             while ($jugador = $resul ->fetch_object()){
                 echo $jugador->Nombre;
-                echo "<br>=================";
+                echo "<br>=================<br>";
             }
         }else{
             Echo "No hay jugadores";

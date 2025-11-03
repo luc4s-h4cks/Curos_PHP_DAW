@@ -1,7 +1,7 @@
 <?php
 include 'funsiones.php';
 
-$msg= "";
+$msg = "";
 
 if (isset($_POST['menu'])) {
     header("Location: index.php");
@@ -18,16 +18,21 @@ if (isset($_POST['insertar'])) {
 
 if (isset($_POST['insertar']) && $nombre && $dni && $equipo && $goles && $posicion) {
     try {
-        $conex = new mysqli("localhost", "dwes", "abc123.", "jugadores");
-        $stmt = $conex->prepare("insert into jugador values(?,?,?,?,?,?)");
-        $pos = implode(",", $_POST['pos']);
-        $stmt->bind_param("ssissi", $_POST['nombre'], $_POST['dni'], $_POST['dorsal'], $pos, $_POST['equipo'], $_POST['goles']);
-        $stmt->execute();
-        $_POST['msg'] = "Jugador introducido";
-        header("Location: index.php?from=insertar");
-        exit;
+        $conex = getConex();
+        try {
+            $stmt = $conex->prepare("insert into jugador values(?,?,?,?,?,?)");
+            $pos = implode(",", $_POST['pos']);
+            $stmt->bind_param("ssissi", $_POST['nombre'], $_POST['dni'], $_POST['dorsal'], $pos, $_POST['equipo'], $_POST['goles']);
+            $stmt->execute();
+            
+            $_POST['msg'] = "Jugador introducido";
+            header("Location: index.php?from=insertar");
+            exit;
+        } catch (mysqli_sql_exception $ex) {
+            $msg = "Ese DNI ya existe en la base de datos";
+        }
     } catch (mysqli_sql_exception $ex) {
-        $msg = "Ese DNI ya existe en la base de datos";
+        $msg = "error al conectar con el servidor";
     }
 }
 ?>
@@ -65,7 +70,7 @@ if (isset($_POST['insertar']) && $nombre && $dni && $equipo && $goles && $posici
     <?php if (isset($_POST['insertar']) && !$goles) echo "<span style='color: red;'>Solo numeros</span>" ?><br>
 
     <input type="hidden" name="msg">
-    
+
     <input type="submit" name="menu" value="Menu">
     <input type="submit" name="insertar" value="Insertar">
 

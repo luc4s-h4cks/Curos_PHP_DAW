@@ -1,8 +1,9 @@
 <h2>Lista jugadores</h2>
 <br>
 <?php
+include 'funsiones.php';
 try {
-    $conex = new mysqli("localhost", "dwes", "abc123.", "jugadores");
+    $conex = getConex();
     $resul = $conex ->query("select * from jugador");
     if($resul->num_rows){
         while ($jugador = $resul->fetch_object()){
@@ -17,8 +18,8 @@ try {
         echo "No hay jugadores en la base de datos";
     }
     
-} catch (Exception $ex) {
-    
+} catch (mysqli_sql_exception $ex) {
+    echo "Error con la cnoexion del servidor";
 }
 ?>
 <form action="index.php" method="post">

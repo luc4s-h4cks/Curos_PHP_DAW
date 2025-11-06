@@ -1,8 +1,34 @@
 <?php
 include 'funciones.php';
+$msg="";
 
 if(isset($_POST['reservar'])){
+    $hayPlazas=false;
+    try {
+        $conex = new PDO("mysql:host=localhost;dbname=autobuses", "dwes", "abc123.");
+    } catch (Exception $ex) {
+        
+    }
     
+    try {
+        $conex = getConex();
+        $resul = $conex->prepare("update viajes set Plazas_libres = Plazas_libres-? where Fecha=? and Matricula=? and Origen = ? and Destino = ? and Plazas_libres >= ?");
+        $resul->bindparam(1, $_POST['plazasR']);
+        $resul->bindparam(2, $_POST['fecha']);
+        $resul->bindparam(3, $_POST['matricula']);
+        $resul->bindparam(4, $_POST['org']);
+        $resul->bindparam(5, $_POST['des']);
+        $resul->bindparam(6, $_POST['plazasR']);
+        $resul->execute();
+        if($resul->rowCount()){
+            $msg = "Reseva realizada correctamente";
+        }else{
+            $msg = "Numero de plazas superior a las disponibles";
+        }
+        
+    } catch (PDOException $ex) {
+        echo $ex->getMessage();
+    }
 }
 
 ?>
@@ -34,16 +60,16 @@ if (isset($_POST['consultar'])) {
                 $viaje = $resul->fetchObject();
                 echo "<form action='' method='post'>";
                 echo 'Fecha: '.$viaje->Fecha.'<br>';
-                echo "<input type='hidden' name='' value=''>";
+                echo "<input type='hidden' name='fecha' value='$_POST[fecha]'>";
                 
                 echo 'Origen: '.$viaje->Origen.'<br>';
-                echo "<input type='hidden' name='' value=''>";
+                echo "<input type='hidden' name='org' value='$_POST[org]'>";
                 
                 echo 'Destino: '.$viaje->Destino.'<br>';
-                echo "<input type='hidden' name='' value=''>";
+                echo "<input type='hidden' name='des' value='$_POST[des]'>";
                 
                 echo 'Nº plazas: '.$viaje->Plazas_libres.'<br>';
-                echo "<input type='hidden' name='' value=''>";
+                echo "<input type='hidden' name='matricula' value='$viaje->Matricula'>";
                 
                 echo "Nº plazas a reservar: <input type='number' name='plazasR'>";
                 echo "<input type='submit' name='reservar' value='Reservar'>";
@@ -60,4 +86,6 @@ if (isset($_POST['consultar'])) {
         Echo "Los Destinos deben de ser diferentes";
     }
 }
+
+echo $msg;
 ?>

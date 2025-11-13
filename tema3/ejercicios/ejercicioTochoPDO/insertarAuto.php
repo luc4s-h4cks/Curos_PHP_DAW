@@ -2,9 +2,6 @@
 include 'funciones.php';
 $msg="";
 
-if(isset($_POST['menu'])){
-    backToMenu();
-}
 
 if(isset($_POST['agregar'])){
     try {
@@ -23,7 +20,7 @@ if(isset($_POST['agregar'])){
         } catch (Exception $ex) {
             $msg="Esa matricula ya exites";
         }
-        
+        closeConex($conex);
     } catch (PDOException $ex) {
         
     }
@@ -37,7 +34,7 @@ if(isset($_POST['agregar'])){
     Marca: <input type="text" name="marca"><br>
     Nº plazas: <input type="number" name="nplazas"><br>
     
-    <input type="submit" name="menu" value="Menu">
+    <button><a href="menu.php">Menu</a></button>
     <input type="submit" name="agregar" value="Añadir">
     
 </form><br>

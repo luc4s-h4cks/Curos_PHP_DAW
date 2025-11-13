@@ -2,10 +2,14 @@
 include 'funciones.php';
 $msg="";
 
+if(isset($_POST['menu'])){
+    backToMenu();
+}
+
 if(isset($_POST['reservar'])){
     $hayPlazas=false;
     try {
-        $conex = new PDO("mysql:host=localhost;dbname=autobuses", "dwes", "abc123.");
+        $conex = getConex();
     } catch (Exception $ex) {
         
     }
@@ -25,7 +29,7 @@ if(isset($_POST['reservar'])){
         }else{
             $msg = "Numero de plazas superior a las disponibles";
         }
-        
+        closeConex($conex);
     } catch (PDOException $ex) {
         echo $ex->getMessage();
     }
@@ -39,7 +43,7 @@ if(isset($_POST['reservar'])){
     Origen: <input type="text" name="org"><br>
     Destino: <input type="text" name="des"><br>
 
-    <input type="submit" name="menu" value="Menu">
+    <button><a href="menu.php">Menu</a></button>
     <input type="submit" name="consultar" value="Consultar">
 
 </form>

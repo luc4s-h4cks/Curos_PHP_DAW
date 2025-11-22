@@ -5,8 +5,15 @@ class Empleado extends Persona{
     
     public function __construct($n = "Jose", $a = "Pineda", $e = 20, $sal=1200) {
         parent::__construct($n, $a, $e);
-        $this->salario=$sal;
-        
+        $this->salario=$sal;    
+    }
+    
+    #[\Override]
+    public function __toString(): string {
+        return "<br>Soy " . $this->nombre
+                . " " . $this->apellidos
+                . ", tengo " . $this->edad
+                . " años y cobro ". $this->salario."€";
     }
     
 }

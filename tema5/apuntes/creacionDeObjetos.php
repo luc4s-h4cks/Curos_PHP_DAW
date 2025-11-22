@@ -42,3 +42,5 @@ echo "<br>==========HERENCIA============<br>";
 $e = new Empleado("Antonio", "Campos", 30, 2500);
 
 echo $e->nombre;
+
+echo $e;

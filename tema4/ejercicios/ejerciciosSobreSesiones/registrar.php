@@ -1,4 +1,7 @@
 <?php
+if (isset($_COOKIE['intentos']) && $_COOKIE['intentos'] <= 0) {
+    header("Location: intentos.php");
+}
 $nombre = false;
 $apellido = false;
 $direccion = false;
@@ -38,24 +41,22 @@ if (isset($_POST['registrar']) && $nombre && $apellido && $direccion && $localid
         try {
             $stmt = $conex->prepare("insert into usuario values(?,?,?,?,?,?,?,?,?,?)");
             $passCifrada = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-            $stmt->bind_param("ssssssssss", 
+            $stmt->bind_param("ssssssssss",
                     $_POST['nombre'], $_POST['ape'], $_POST['dir'], $_POST['loc'], $_POST['usu'], $passCifrada, $_POST['cl'], $_POST['cf'], $_POST['tl'], $_POST['sl']);
             $stmt->execute();
-            if($stmt->affected_rows){
+            if ($stmt->affected_rows) {
                 session_name("user");
                 session_start();
-                $_SESSION['nombre']  = $_POST['nombre'];
-                $_SESSION['apellido']  = $_POST['ape'];
-                $_SESSION['dir']  = $_POST['dir'];
-                $_SESSION['loc']  = $_POST['loc'];
-                $_SESSION['user']  = $_POST['user'];
-                $_SESSION['pass']  = $_POST['pass'];
-                $_SESSION['cl']  = $_POST['cl'];
-                $_SESSION['cf']  = $_POST['cf'];
-                $_SESSION['tl']  = $_POST['tl'];
-                $_SESSION['sl']  = $_POST['sl'];
+                $_SESSION['nombre'] = $_POST['nombre'];
+                $_SESSION['apellido'] = $_POST['ape'];
+                $_SESSION['dir'] = $_POST['dir'];
+                $_SESSION['loc'] = $_POST['loc'];
+                $_SESSION['user'] = $_POST['user'];
+                $_SESSION['cl'] = $_POST['cl'];
+                $_SESSION['cf'] = $_POST['cf'];
+                $_SESSION['tl'] = $_POST['tl'];
+                $_SESSION['sl'] = $_POST['sl'];
                 header("Location: inicio.php");
-                
             }
         } catch (Exception $ex) {
             echo "Ese usuario ya existe";

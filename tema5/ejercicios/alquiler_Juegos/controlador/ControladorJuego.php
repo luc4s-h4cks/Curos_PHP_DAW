@@ -20,4 +20,40 @@ class ControladorJuego {
         }
     }
     
+    public static function crearCodigo($juego, $consola) {
+        $cod="";
+        $array = explode(" ", $juego);
+        foreach ($array as $p){
+            $cod.=$p[0];
+        }
+        
+        $cod.="-".$consola;
+        return $cod;
+    }
+
+
+    public static function insertJuego($juego) {
+        try {
+            $conex = new ConexionJuegos();
+            $stmt = $conex->prepare("insert into juegos values(?,?,?,?,?,?,?,?)");
+            $cod=$juego->codigo;
+            $nomJ=$juego->nombre_juego;
+            $nomC=$juego->nombre_consola;
+            $anio=$juego->anio;
+            $pre=$juego->precio;
+            $alq=$juego->alquilado;
+            $img=$juego->imagen;
+            $des=$juego->desc;
+            $stmt->bind_param("sssiisss", $cod,$nomJ,$nomC,$anio,$pre,$alq,$img,$des);
+            $stmt->execute();
+            if($stmt->affected_rows){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception $ex) {
+            
+        }
+    }
+    
 }

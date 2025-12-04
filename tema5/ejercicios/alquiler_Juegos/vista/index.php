@@ -19,20 +19,23 @@ if(isset($_SESSION['cliente'])){
 }
 
 if(isset($_SESSION['cliente']) && $_SESSION['cliente']->tipo === "admin"){
-    echo "<a href='#'>Nuevo juego</a><br>";
+    echo "<a href='nuevoJuego.php'>Nuevo juego</a><br>";
 }
 
 $juegos = ControladorJuego::getAll();
 
 if(count($juegos) > 0){
     foreach ($juegos as $j){
-        echo "<h3>".$j->$nombre_juego."</h3>";
-        echo "<img src='$j->imagen' alt='alt'/>";
+        echo "<form action='mod_borrar' method='post'>";
+        echo "<h3>". $j->nombre_juego ."</h3>";
+        echo "<img src='$j->imagen' alt='alt'/><br>";
+        echo "<input type='hidden' name='cod' value='$j->codigo'>";
+        if(isset($_SESSION['cliente']) && $_SESSION['cliente']->tipo === "admin"){
+            echo "<input type='submit' name='borrar' value='Borrar'>";
+        }
+        echo "</form>";
     }
 }
 
 ?>
-
-
-
 

@@ -13,12 +13,12 @@ class Juego {
     
     public function __construct($codigo, $nombre_juego, $nombre_consola, $anio, $precio, $alquilado, $imagen, $desc) {
         $this->codigo=$codigo;
-        $this->nombre_juego=$codigo;
-        $this->nombre_consola=$codigo;
-        $this->anio=$codigo;
-        $this->precio=$codigo;
-        $this->alquilado=$codigo;
-        $this->$imagen=$codigo;
+        $this->nombre_juego=$nombre_juego;
+        $this->nombre_consola=$nombre_consola;
+        $this->anio=$anio;
+        $this->precio=$precio;
+        $this->alquilado=$alquilado;
+        $this->imagen=$imagen;
         $this->desc=$desc;
     }
     

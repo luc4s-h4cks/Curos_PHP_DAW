@@ -11,7 +11,7 @@ class Cliente {
     private $tipo;
 
 
-    public function __construct($dni, $nombre, $apellidos, $direccion, $localidad, $clave, $tipo) {
+    public function __construct($dni, $nombre, $apellidos, $direccion, $localidad, $clave, $tipo="cliente") {
         $this->dni=$dni;
         $this->nombre=$nombre;
         $this->apellidos=$apellidos;

@@ -15,7 +15,7 @@ if (isset($_SESSION['cliente'])) {
 
 <?php
 if(isset($_SESSION['cliente'])){
-    echo "<a href='#'>Todas</a> <a href='#'>Alquilados</a> <a href='#'>No Alquilados</a> <a href='#'>Mis juegos</a>";
+    echo "<a href='#'>Todas</a> <a href='#'>Alquilados</a> <a href='#'>No Alquilados</a> <a href='misJuegos.php'>Mis juegos</a>";
 }
 
 if(isset($_SESSION['cliente']) && $_SESSION['cliente']->tipo === "admin"){

@@ -16,5 +16,9 @@ class Alquiler {
         $this->fecha_alquiler=$fecha_alquiler;
         $this->fecha_devo=$fecha_devo;
     }
+    
+    public function __get(string $name): mixed {
+        return $this->$name;
+    }
 }
 

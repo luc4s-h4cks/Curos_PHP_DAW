@@ -11,21 +11,35 @@ $dni = $_SESSION['cliente']->dni;
 
 $alquileres = ControladorAlquiler::getAlquileresUsuario($dni);
 
-if(isset($_POST['devolver'])){
+if (isset($_POST['devolver'])) {
     $alquiler_devuelto = ControladorAlquiler::getAquiler($_POST['id']);
-    
+
     $fecha_devo = date("Y-m-d", time());
-    
-    if(ControladorAlquiler::juegoDevuelto($alquiler_devuelto->id, $fecha_devo)){
-        
-        echo "Juego devuelto";
-        
-    }else{
+    $fecha_ini = $alquiler_devuelto->fecha_alquiler;
+
+    if (ControladorAlquiler::juegoDevuelto($alquiler_devuelto->id, $fecha_devo)) {
+
+        $ini = new DateTime($fecha_ini);
+        $plazo = clone $ini;
+        $plazo->modify("+7 days");
+
+        $entrega = new DateTime($fecha_devo);
+
+        if ($entrega > $plazo) {
+            $diff = $plazo->diff($entrega);
+            $dias_retraso = $diff->days;
+        } else {
+            $dias_retraso = 0;
+        }
+
+        echo "Juego devuelto correctamente<br>";
+        echo "Costo alquiler: 10<br>";
+        echo "Retraso ($dias_retraso días)<br>";
+        echo "Total: " . (10 + $dias_retraso) . "€";
+    } else {
         echo "Paso algo durante la devolucion";
     }
-    
 }
-
 ?>
 
 <table border='1px'>
@@ -59,7 +73,24 @@ if(isset($_POST['devolver'])){
         } else {
             echo "<td>$alq->fecha_devo</td>";
         }
-        echo "<td>$juego->precio</td> <td></td>";
+        echo "<td>$juego->precio</td>";
+        if ($alq->fecha_devo != null) {
+            $fecha_ini = $alq->fecha_alquiler;
+            $devo = $alq->fecha_devo;
+            
+            $inicio = new DateTime($fecha_ini);
+            $entrega = new DateTime($devo);
+            $diferencia = $entrega->diff($inicio);
+            $diasR = $diferencia->days;
+            $extra = 0;
+            if($diasR-7 > 0){
+                $extra = 10 + ($diasR-7);
+            }
+            
+            echo "<td>".(10+$extra)."</td>";
+        } else {
+            echo "<td></td>";
+        }
         echo "</tr>";
     }
     ?>

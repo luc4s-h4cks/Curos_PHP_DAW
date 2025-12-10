@@ -1,6 +1,7 @@
 <?php
 require_once '../modelo/Producto.php';
 require_once '../controlador/productoControler.php';
+session_start();
 
     if(isset($_POST['insertar'])){
         $p = new Producto($_POST['cod'], $_POST['nom'], $_POST['pre']);

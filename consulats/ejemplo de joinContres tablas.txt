@@ -1,0 +1,10 @@
+SELECT 
+    c.nombre AS cliente,
+    p.fecha AS fecha_pedido,
+    pr.nombre_producto AS producto
+FROM 
+    Clientes c
+JOIN 
+    Pedidos p ON c.cliente_id = p.cliente_id
+JOIN 
+    Productos pr ON p.pedido_id = pr.pedido_id;

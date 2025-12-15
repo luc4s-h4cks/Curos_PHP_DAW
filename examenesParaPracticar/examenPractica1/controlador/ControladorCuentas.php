@@ -77,4 +77,46 @@ class ControladorCuentas {
             
         }
     }
+
+    public static function hacerTranferencia($ibanOg, $ibanDes, $cantidad, $comision, $ibanBanco) {
+        try {
+            $conex = new ConexionBanco();
+            $conex->autocommit(false);
+            $total = $cantidad + $comision;
+            $conex->execute_query("update cuentas set saldo= saldo-$total where iban='$ibanOg'");
+            if ($conex->affected_rows) {
+                $conex->execute_query("update cuentas set saldo= saldo+$cantidad where iban='$ibanDes'");
+                if ($conex->affected_rows) {
+                    $conex->execute_query("update cuentas set saldo= saldo+$comision where iban='$ibanBanco'");
+                    if ($conex->affected_rows) {
+                        $conex->commit();
+                        return true;
+                    } else {
+                        $conex->rollback();
+                        return false;
+                    }
+                } else {
+                    $conex->rollback();
+                    return false;
+                }
+            } else {
+                $conex->rollback();
+                return false;
+            }
+        } catch (Exception $ex) {
+            
+        }
+    }
+    
+    public static function getIbanBanco() {
+        try {
+            $conex = new ConexionBanco();
+            $resul = $conex->execute_query("select iban from cuentas join usuarios where DNI=dni_cuenta and Direccion='Banco'");
+            $bank = $resul->fetch_object();
+            $ibanBanco = $bank->iban;
+            return $ibanBanco;
+        } catch (Exception $ex) {
+            
+        }
+    }
 }

@@ -28,7 +28,7 @@ if(count($juegos) > 0){
     foreach ($juegos as $j){
         echo "<form action='mod_borrar.php' method='post'>";
         echo "<h3>". $j->nombre_juego ."</h3>";
-        echo "<a href='detalles.php?cod=$j->codigo'><img src='$j->imagen' alt='alt'/></a><br>";
+        echo "<a href='detalles.php?cod=$j->codigo'><img src='$j->imagen' alt='alt' width='175' height='175' /></a><br>";
         echo "<input type='hidden' name='cod' value='$j->codigo'>";
         if(isset($_SESSION['cliente']) && $_SESSION['cliente']->tipo === "admin"){
             echo "<input type='submit' name='borrar' value='Borrar'>";

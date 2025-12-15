@@ -64,7 +64,7 @@ if (isset($_POST['devolver'])) {
         $fechaPrevista = $fechaIni->format('Y-m-d');
 
         echo "<tr>";
-        echo "<td></td> <td>$juego->nombre_juego</td> <td>$juego->nombre_consola</td> <td>$juego->anio</td> <td>$alq->fecha_alquiler</td><td>$fechaPrevista</td>";
+        echo "<td><img src='$juego->imagen' alt='alt' width='75' height='75' /></td> <td>$juego->nombre_juego</td> <td>$juego->nombre_consola</td> <td>$juego->anio</td> <td>$alq->fecha_alquiler</td><td>$fechaPrevista</td>";
         if ($alq->fecha_devo == null) {
             echo "<form action='' method='post'>";
             echo "<input type='hidden' name='id' value='$alq->id'>";

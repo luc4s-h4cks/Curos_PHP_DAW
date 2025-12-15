@@ -9,23 +9,14 @@ session_start();
 $usu = $_SESSION['usuario'];
 
 echo "<h3>Hola $usu->nombre</h3>";
-
+$ibanBanco = ControladorCuentas::getIbanBanco();
+echo $ibanBanco;
 if (isset($_POST['conf'])) {
-    $pago = $_POST['cantidad'] + $_POST['comision'];
-    if (ControladorCuentas::pagar($_POST['origen'], $pago)) {
-        if (ControladorCuentas::agregar($_POST['destino'], $_POST['cantidad'])) {
-            if (ControladorCuentas::agregar("ES2099999999999999999999", $_POST['comision'])) {
-                $t = new Trasferencia($_POST['origen'], $_POST['destino'], $_POST['fecha'], $_POST['cantidad']);
-                var_dump($t);
-                if (ControladorTrasferencias::crearTransferencia($t)) {
-                    header("Location: cuentas.php");
-                } else {
-                    echo "Algo salio mal";
-                }
-            } else {
-                echo "3";
-            }
-        }
+
+    if (ControladorCuentas::hacerTranferencia($_POST['origen'], $_POST['destino'], $_POST['cantidad'], $_POST['comision'], $ibanBanco)) {
+        header("Location: cuentas.php");
+    } else {
+        echo "Algo ocurrio durante la transferencia";
     }
 }
 

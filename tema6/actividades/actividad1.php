@@ -8,6 +8,7 @@ if (isset($_POST['buscar'])) {
     echo "Temperatura Minima: ".$tiempo->main->temp_min."<br>";
     echo "Velocidad del viento: ".$tiempo->wind->speed."<br>";
     echo "Nubes: ".$tiempo->clouds->all."%<br>";
+    echo "<img src='https://openweathermap.org/img/wn/".$tiempo->weather[0]->icon.".png'>";
     
 }
 ?>

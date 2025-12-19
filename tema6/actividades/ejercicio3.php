@@ -18,8 +18,8 @@ for ($i = 0; $i < count($usu->results); $i++) {
     $user = $usu->results[$i]->login->username;
     $pass = $usu->results[$i]->login->password;
     
-    $stmt = $conex->prepare("insert into persona (nombre,apellidos,direccion,pais,telefono,email,username,password) values(?,?,?,?,?,?,?,?,?)");
-    $stmt->bind_param("ssssssss", $nombre, $apellidos, $dir, $ciudad, $telf, $email, $user, $pass);
+    $stmt = $conex->prepare("insert into persona (nombre,apellidos,direccion,ciudad,pais,telefono,email,username,password) values(?,?,?,?,?,?,?,?,?)");
+    $stmt->bind_param("sssssssss", $nombre, $apellidos, $dir, $ciudad, $pais, $telf, $email, $user, $pass);
     $stmt->execute();
 }
 ?>
